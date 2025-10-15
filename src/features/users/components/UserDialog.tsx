@@ -38,7 +38,12 @@ const UserDialog: React.FC<Props> = ({
 	editingUser,
 	setEditingUser,
 }) => {
-	const { register, handleSubmit, reset } = useForm<FormData>({
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<FormData>({
 		resolver: zodResolver(schema),
 	});
 
@@ -94,16 +99,22 @@ const UserDialog: React.FC<Props> = ({
 						label="Name"
 						{...register("name")}
 						disabled={isSubmitting}
+						error={!!errors.name} // Highlight field if error
+						helperText={errors.name?.message} // Show error message
 					/>
 					<TextField
 						label="Username"
 						{...register("username")}
 						disabled={isSubmitting}
+						error={!!errors.username}
+						helperText={errors.username?.message}
 					/>
 					<TextField
 						label="Email"
 						{...register("email")}
 						disabled={isSubmitting}
+						error={!!errors.email}
+						helperText={errors.email?.message}
 					/>
 				</DialogContent>
 				<DialogActions>
