@@ -6,6 +6,7 @@ import {
 	TextField,
 	DialogActions,
 	Button,
+	CircularProgress,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,8 +44,8 @@ const UserDialog: React.FC<Props> = ({
 
 	const dispatch = useDispatch<AppDispatch>();
 
-	const [addUser] = useAddUserMutation();
-	const [updateUser] = useUpdateUserMutation();
+	const [addUser, { isLoading: isAdding }] = useAddUserMutation();
+	const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
 	useEffect(() => {
 		if (editingUser) reset(editingUser);
@@ -53,7 +54,6 @@ const UserDialog: React.FC<Props> = ({
 
 	const onSubmit = async (data: FormData) => {
 		try {
-			// throw new Error("Simulated network failure");
 			if (editingUser) {
 				await updateUser({ id: editingUser.id, ...data }).unwrap();
 				dispatch(
@@ -71,31 +71,55 @@ const UserDialog: React.FC<Props> = ({
 					})
 				);
 			}
+			setOpen(false);
+			setEditingUser(null);
 		} catch (err) {
 			dispatch(
 				showSnackbar({ message: "Failed to save user", severity: "error" })
 			);
 			console.log(err);
-		} finally {
-			setOpen(false);
-			setEditingUser(null);
 		}
 	};
 
+	const isSubmitting = isAdding || isUpdating;
+
 	return (
-		<Dialog open={open} onClose={() => setOpen(false)}>
+		<Dialog open={open} onClose={() => !isSubmitting && setOpen(false)}>
 			<DialogTitle>{editingUser ? "Edit User" : "Add User"}</DialogTitle>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<DialogContent
 					sx={{ display: "flex", flexDirection: "column", gap: 2 }}
 				>
-					<TextField label="Name" {...register("name")} />
-					<TextField label="Username" {...register("username")} />
-					<TextField label="Email" {...register("email")} />
+					<TextField
+						label="Name"
+						{...register("name")}
+						disabled={isSubmitting}
+					/>
+					<TextField
+						label="Username"
+						{...register("username")}
+						disabled={isSubmitting}
+					/>
+					<TextField
+						label="Email"
+						{...register("email")}
+						disabled={isSubmitting}
+					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => setOpen(false)}>Cancel</Button>
-					<Button type="submit" variant="contained">
+					<Button onClick={() => setOpen(false)} disabled={isSubmitting}>
+						Cancel
+					</Button>
+					<Button
+						type="submit"
+						variant="contained"
+						disabled={isSubmitting}
+						startIcon={
+							isSubmitting ? (
+								<CircularProgress size={20} color="inherit" />
+							) : null
+						}
+					>
 						{editingUser ? "Save" : "Add"}
 					</Button>
 				</DialogActions>
