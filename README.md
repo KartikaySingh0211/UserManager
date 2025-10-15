@@ -57,34 +57,38 @@ Open http://localhost:3000 to view the app.
 ### 3. Project Structure
 
 ```bash
-src/
- ┣ app/
- ┃ ┣ store.ts            # Redux store setup
- ┃ ┗ hooks.ts            # Typed hooks for Redux
- ┣ features/
- ┃ ┣ users/
- ┃ ┃ ┣ components/
- ┃ ┃ ┃ ┣ UserTable.tsx
- ┃ ┃ ┃ ┣ UserTableHeader.tsx
- ┃ ┃ ┃ ┣ UserTableRow.tsx
- ┃ ┃ ┃ ┣ UserTableSkeleton.tsx
- ┃ ┃ ┃ ┣ UserDialog/
- ┃ ┃ ┃ ┃ ┣ UserDialog.tsx
- ┃ ┃ ┃ ┃ ┣ UserDialogForm.tsx
- ┃ ┃ ┃ ┃ ┗ index.ts
- ┃ ┃ ┣ usersApi.ts
- ┃ ┃ ┣ types.ts
- ┃ ┃ ┗ index.ts
- ┃ ┣ ui/
- ┃ ┃ ┣ AppSnackbar.tsx
- ┃ ┃ ┣ Loader.tsx
- ┃ ┃ ┣ ConfirmDialog.tsx
- ┃ ┃ ┣ uiSlice.ts
- ┃ ┃ ┗ index.ts
- ┣ theme/
- ┃ ┗ theme.ts
- ┣ App.tsx
- ┗ main.tsx
+.
+┣ index.html
+┣ README.md
+┗ src/
+	┣ main.tsx
+	┣ app/
+	┃ ┣ App.tsx
+	┃ ┣ hooks.ts
+	┃ ┗ store.ts
+	┣ features/
+	┃ ┣ users/
+	┃ ┃ ┣ index.ts
+	┃ ┃ ┣ types.ts
+	┃ ┃ ┣ usersApi.ts
+	┃ ┃ ┣ usersSlice.ts
+	┃ ┃ ┗ components/
+	┃ ┃   ┣ UserDialog.tsx
+	┃ ┃   ┗ userTable/
+	┃ ┃     ┣ UserTable.tsx
+	┃ ┃     ┣ UserTableHeader.tsx
+	┃ ┃     ┣ UserTableRow.tsx
+	┃ ┃     ┗ UserTableSkeleton.tsx
+	┃ ┣ ui/
+	┃ ┃ ┣ index.ts
+	┃ ┃ ┣ AppSnackbar.tsx
+	┃ ┃ ┣ ConfirmDialog.tsx
+	┃ ┃ ┣ Loader.tsx
+	┃ ┃ ┗ uiSlice.ts
+	┣ styles/
+	┃ ┗ index.css
+	┣ theme/
+	┗ ┗ theme.ts
 ```
 
 ### 4. API Endpoints
