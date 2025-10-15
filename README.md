@@ -1,73 +1,103 @@
-# React + TypeScript + Vite
+# User Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React + TypeScript web app to manage a list of users.  
+Built with **React.js**, **TypeScript**, **MUI**, **Redux Toolkit**, and **RTK Query**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- **Display Users**: Table with Name, Username, Email, and Actions (Edit/Delete)
+- **Add User**: Form dialog with validation (required fields + email format)
+- **Edit User**: Pre-filled dialog for editing existing users
+- **Delete User**: Custom confirmation dialog
+- **Snackbar notifications** for success/error feedback
+- **Loading & Error Handling**: Custom loader and table skeleton
+- **Pagination**: Table pagination for large datasets
+- **Modular Components**: Each feature broken into reusable subcomponents
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React.js** (v18+)
+- **TypeScript**
+- **MUI (Material UI)**
+- **Redux Toolkit + RTK Query**
+- **React Hook Form + Zod** (form validation)
+- **Framer Motion** (loader animations)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/KartikaySingh0211/UserManager.git
+cd UserManager
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install Dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+# or
+yarn install
 ```
+
+```bash
+npm start
+# or
+yarn start
+```
+
+Open http://localhost:3000 to view the app.
+
+### 3. Project Structure
+
+```bash
+src/
+ ┣ app/
+ ┃ ┣ store.ts            # Redux store setup
+ ┃ ┗ hooks.ts            # Typed hooks for Redux
+ ┣ features/
+ ┃ ┣ users/
+ ┃ ┃ ┣ components/
+ ┃ ┃ ┃ ┣ UserTable.tsx
+ ┃ ┃ ┃ ┣ UserTableHeader.tsx
+ ┃ ┃ ┃ ┣ UserTableRow.tsx
+ ┃ ┃ ┃ ┣ UserTableSkeleton.tsx
+ ┃ ┃ ┃ ┣ UserDialog/
+ ┃ ┃ ┃ ┃ ┣ UserDialog.tsx
+ ┃ ┃ ┃ ┃ ┣ UserDialogForm.tsx
+ ┃ ┃ ┃ ┃ ┗ index.ts
+ ┃ ┃ ┣ usersApi.ts
+ ┃ ┃ ┣ types.ts
+ ┃ ┃ ┗ index.ts
+ ┃ ┣ ui/
+ ┃ ┃ ┣ AppSnackbar.tsx
+ ┃ ┃ ┣ Loader.tsx
+ ┃ ┃ ┣ ConfirmDialog.tsx
+ ┃ ┃ ┣ uiSlice.ts
+ ┃ ┃ ┗ index.ts
+ ┣ theme/
+ ┃ ┗ theme.ts
+ ┣ App.tsx
+ ┗ main.tsx
+```
+
+### 4. API Endpoints
+
+Using JSONPlaceholder as a mock API:
+
+### Example API Endpoints (for reference)
+
+| Action      | Method      | Endpoint     |
+| ----------- | ----------- | ------------ |
+| Fetch users | GET         | `/users`     |
+| Add user    | POST        | `/users`     |
+| Update user | PUT / PATCH | `/users/:id` |
+| Delete user | DELETE      | `/users/:id` |
+
+Note: Since JSONPlaceholder is a mock API, add/update/delete operations will not persist.
